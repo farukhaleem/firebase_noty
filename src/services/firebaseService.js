@@ -14,19 +14,19 @@ const firebaseConfig = {
 
 let configureNotification = () => {
     Notification.requestPermission().then((permission) => {
-        console.log(permission)
         if(permission === 'granted'){
             messaging.getToken().then((currentToken) => {
                 if(currentToken){
-                    console.log(currentToken);
+                    
+                    fetch('https://www.maflocksitservices.com/portal/process/includes/noty.php?notif_token_id='+currentToken)
+                    .then(response => response.json()).then( json => console.log(json) );
+
                 }else{
                     console.log('No Instance ID token available.')
                 }
             }).catch((err) =>{
                 console.log('An error occured', err);
             });
-        }else{
-            
         }
     })
 }
